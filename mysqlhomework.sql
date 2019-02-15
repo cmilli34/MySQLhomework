@@ -34,15 +34,27 @@ alter table actor drop Description;
 select last_name, count(last_name) from actor group by last_name;
 
 -- 4b. List last names of actors and the number of actors who have that last name, but only for names that are shared by at least two actors
-
+select last_name, count(last_name) as "Last Name Count"
+from actor
+group by last_name
+having count(last_name) >= 2;
 
 -- 4c. The actor HARPO WILLIAMS was accidentally entered in the actor table as GROUCHO WILLIAMS. Write a query to fix the record.
+UPDATE actor SET first_name ='HARPO' WHERE first_name ='GROUCHO' and last_name = 'WILLIAMS';
 
 -- 4d. Perhaps we were too hasty in changing GROUCHO to HARPO. It turns out that GROUCHO was the correct name after all! In a single query, if the first name of the actor is currently HARPO, change it to GROUCHO.
+UPDATE actor SET first_name ='GROUCHO' WHERE first_name ='HARPO' and last_name = 'WILLIAMS';
 
 -- 5a. You cannot locate the schema of the address table. Which query would you use to re-create it?
+show create table address;
 
 -- 6a. Use JOIN to display the first and last names, as well as the address, of each staff member. Use the tables staff and address:
+select * from address;
+select * from staff;
+select address, staff
+from address a
+join staff c
+ON (a.address_id = c.address_id);
 
 -- 6b. Use JOIN to display the total amount rung up by each staff member in August of 2005. Use tables staff and payment.
 
