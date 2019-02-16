@@ -109,7 +109,14 @@ select title from film_list where category = 'Family';
 select title, sum(rental_rate) from film group by title order by sum(rental_rate) desc;
 
 -- 7f. Write a query to display how much business, in dollars, each store brought in.
-
+select store.store_id, sum(amount)
+from store
+inner join staff
+on store.store_id = staff.store_id
+inner join payment p
+on p.staff_id = staff.staff_id
+group by store.store_id
+order by sum(amount);
 
 -- 7g. Write a query to display for each store its store ID, city, and country.
 select store_id, city, country 
